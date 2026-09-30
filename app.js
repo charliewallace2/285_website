@@ -4,6 +4,14 @@ const multer = require('multer');
 const mysql = require('mysql2/promise');
 const { body, validationResult } = require('express-validator');
 
+//Stylesheet
+app.use(express.static(__dirname + '/public'));
+//Webpage
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+
 //Setup defaults for script
 const app = express();
 app.use(express.static('public'))
