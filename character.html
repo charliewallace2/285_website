@@ -1,0 +1,107 @@
+
+
+
+<!--Single API result-->
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Notable&family=Outfit:wght@100..900&family=Zen+Dots&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <h1>Pokemon Detail</h1>
+
+    <div id="message-banner"></div>
+
+    <div id="character-detail" class="overflow italic">
+        Pokemon details will appear here.
+    </div>
+
+    <br />
+    <a href="edit.html" class="link">Back to edit list</a>
+
+    <script>
+        const displayValue = (value) => value === null ? 'None' : value;
+
+        const showBanner = (message, isError = false) => {
+            const banner = document.getElementById('message-banner');
+            banner.innerHTML = '<p class="' + (isError ? 'error' : 'success') + '">' + message + '</p>';
+        };
+
+        const renderCharacter = (data) => {
+            const detailEl = document.getElementById('character-detail');
+            if (!data) {
+                detailEl.classList.remove('italic');
+                detailEl.innerHTML = '<p class="no-results">Pokemon not found.</p>';
+                return;
+            }
+
+            detailEl.classList.remove('italic');
+            detailEl.innerHTML = '<table>' +
+                '<thead><tr>' +
+                '<th class="table-border">Field</th>' +
+                '<th class="table-border">Value</th>' +
+                '</tr></thead>' +
+                '<tbody>' +
+                '<tr><td class="table-border">ID</td><td class="table-border">' + displayValue(data.id) + '</td></tr>' +
+                '<tr><td class="table-border">Name</td><td class="table-border">' + displayValue(data.name) + '</td></tr>' +
+                '<tr><td class="table-border">Type 1</td><td class="table-border">' + displayValue(data.first_type) + '</td></tr>' +
+                '<tr><td class="table-border">Type 2</td><td class="table-border">' + displayValue(data.second_type) + '</td></tr>' +
+                '<tr><td class="table-border">Gimmick</td><td class="table-border">' + displayValue(data.gimmick) + '</td></tr>' +
+                '<tr><td class="table-border">Gen</td><td class="table-border">' + displayValue(data.gen) + '</td></tr>' +
+                '</tbody></table>';
+        };
+
+        const getIdFromQuery = () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = parseInt(params.get('id'), 10);
+            return Number.isInteger(id) ? id : null;
+        };
+
+        const fetchCharacterById = (pokemonId) => {
+            fetch('http://localhost:3000/pokemon-characters/' + pokemonId)
+                .then(response => response.json().then(data => ({ status: response.status, data })))
+                .then(({ status, data }) => {
+                    if (status === 200) {
+                        renderCharacter(data.data);
+                    } else if (status === 404) {
+                        showBanner(data.message || 'Pokemon not found.', true);
+                    } else {
+                        showBanner('Unable to load Pokemon.', true);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching Pokemon by ID:', error);
+                    showBanner('Error loading Pokemon.', true);
+                });
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const pokemonId = getIdFromQuery();
+            if (!pokemonId) {
+                showBanner('Invalid or missing Pokemon ID.', true);
+                return;
+            }
+            fetchCharacterById(pokemonId);
+        });
+    </script>
+</body>
+
+</html>

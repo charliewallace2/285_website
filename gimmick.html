@@ -1,0 +1,209 @@
+
+
+
+<!--INSERT, ORDER BY-->
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <script src="https://kit.fontawesome.com/fce09cfb67.js" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Notable&family=Outfit:wght@100..900&family=Zen+Dots&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <h1>Pick Your Gimmick</h1>
+
+    <a href="types.html" class="link">Go Back</a>
+
+    <br />
+
+    <div class="forms">
+        <label for="sort-gimmicks">Sort Gimmicks (Gen #):</label>
+        <select class="sort-option" id="sort-gimmicks">
+            <option value="ASC">Ascending</option>
+            <option value="DES">Descending</option>
+        </select>
+    </div>
+
+    <br />
+
+    <div class="forms">
+        <label>Only list gimmicks from generation:</label>
+
+        <select id="gimmick-gen">
+            <option value="None">None</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+        </select>
+    </div>
+
+    <br />
+
+    <div class="forms">
+        <label for="gimmick-keywords">Filter by keyword in description:</label>
+        <input id="gimmick-keywords" type="text" placeholder="Enter keyword(s)" />
+    </div>
+
+    <br />
+
+    <div class="forms">
+        <button id="list-gimmicks" class="zen-dots-regular yippee">List Gimmick Options</button>
+    </div>
+
+    <br />
+
+    <div id="output" class="overflow italic">
+        Table will appear here.
+    </div>
+
+    <table class="creation-table">
+        <tr>
+            <td><label for="gimmick_choice" class="form-label">What's your Pokemon's gimmick? (case sensitive)</label></td>
+            <td>
+                <input id="gimmick_choice" name="gimmick_choice" type="text">
+                <div id="error-gimmick_choice" class="error"></div>
+            </td>
+        </tr>
+    </table>
+
+    <button id="pick-gimmick" class="zen-dots-regular shakey-shake">Select This Gimmick</button>
+
+    <script>
+        const isEmpty = (obj) => Object.keys(obj).length === 0;
+        const displayValue = (value) => value === null ? 'None' : value;
+
+        document.getElementById('list-gimmicks').addEventListener('click', (event) => {
+            const getParameters = {};
+
+            // sort parameter
+            const sortValue = document.getElementById('sort-gimmicks').value;
+            if (sortValue && sortValue.length !== 0) {
+                getParameters.sort = sortValue;
+            }
+
+            // generation filter
+            const genValue = document.getElementById('gimmick-gen').value;
+            if (genValue && genValue !== 'None') {
+                getParameters.gimmick_gen = genValue;
+            }
+
+            // keyword filter for gimmick description
+            const keywordValue = document.getElementById('gimmick-keywords').value.trim();
+            if (keywordValue !== '') {
+                getParameters.keywords = keywordValue;
+            }
+
+            //Settings for FETCH API request
+            let fetchSettings = {
+                method: 'GET'
+            };
+
+            //Send FETCH API request
+            fetch("http://localhost:3000/gimmicks/" + (!isEmpty(getParameters) ? '?' + new URLSearchParams(getParameters) : ''),
+                fetchSettings)
+                .then((response) => {
+                    return new Promise((resolve) => response.json()
+                        .then((json) => resolve({
+                            status: response.status,
+                            json,
+                        })
+                        ));
+                })
+                // display results
+                .then(({ status, json }) => {
+                    if (status === 200) {
+                        let displayTable = '<table>' +
+                            '<thead>' +
+                            '<tr>' +
+                            '<th class="table-border" width="15%">Gimmick Name</th>' +
+                            '<th class="table-border" width="70%">Description</th>' +
+                            '<th class="table-border" width="15%">Generation</th>' +
+                            '</tr>' +
+                            '</thead>' +
+                            '<tbody>';
+                        if (typeof json.data !== 'undefined' && json.data.length > 0) {
+                            for (row of json.data) {
+                                displayTable += '<tr>' +
+                                    '<td class="table-border" >' + displayValue(row.gimmick_name) + '</td>' +
+                                    '<td class="table-border" >' + displayValue(row.gimmick_desc) + '</td>' +
+                                    '<td class="table-border" >' + displayValue(row.gimmick_gen) + '</td>' +
+                                    '</tr>';
+                            }
+                        } else {
+                            displayTable += '<tr><td colspan="3" class="no-results">No results found</td></tr>';
+                        }
+                        displayTable += '</tbody></table>';
+                        const outputEl = document.getElementById('output');
+                        outputEl.classList.remove('italic');
+                        outputEl.innerHTML = displayTable;
+                    } else {
+                        document.getElementById('output').innerHTML = '<p class="error">Error: ' + json.message + '</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('output').innerHTML = '<p class="error">Error fetching data</p>';
+                });
+        });
+
+        document.getElementById('pick-gimmick').addEventListener('click', () => {
+            document.querySelectorAll('[id^="error-"]').forEach(el => el.innerHTML = '');
+
+            const gimmick = document.getElementById('gimmick_choice').value.trim();
+
+            const formData = new FormData();
+            formData.append('gimmick_choice', gimmick);
+
+            fetch('http://localhost:3000/create-gimmick', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json().then(data => ({ status: response.status, data })))
+                .then(({ status, data }) => {
+                    const outputEl = document.getElementById('output');
+                    if (status === 400) {
+                        data.errors.forEach(err => {
+                            const errorDiv = document.getElementById(`error-${err.path}`);
+                            if (errorDiv) {
+                                errorDiv.innerHTML = err.msg;
+                            }
+                        });
+                    } else if (status === 200) {
+                        outputEl.classList.remove('italic');
+                        outputEl.innerHTML = '<p>' + data.message + '</p>';
+                        window.location.href = 'build.html';
+                    } else {
+                        outputEl.classList.remove('italic');
+                        outputEl.innerHTML = '<p class="error">Unexpected response from server</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    const outputEl = document.getElementById('output');
+                    outputEl.classList.remove('italic');
+                    outputEl.innerHTML = '<p class="error">Error saving gimmick</p>';
+                });
+        });
+    </script>
+</body>
+
+</html>

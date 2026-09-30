@@ -1,0 +1,436 @@
+﻿body {
+    background-color: #FEFAE0;
+    margin: 0;
+    display: grid;
+    place-items: center;
+
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h1 {
+    font-size: 50px;
+    color: #5B4636;
+    font-weight: 700;
+    padding-top: 20px;
+    padding-bottom: 40px;
+    text-decoration: underline;
+}
+
+h1:hover {
+    color: goldenrod;
+    font-style: italic;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+h2 {
+    font-size: 30px;
+    color: #5B4636;
+    font-weight: 700;
+    padding-bottom: 20px;
+}
+
+h2:hover {
+    color: goldenrod;
+    font-style: italic;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+p {
+    max-width: 66ch;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    opacity: 0.95;
+    line-height: 1.7;
+}
+
+button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-color: #D4A373;
+    color: #FEFAE0;
+    padding: 0.9rem 1.75rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border-bottom: 5px solid #7e5831;
+}
+
+button:hover {
+    font-size: 20px;
+    background-color: #7e5831;
+    box-shadow: 0 20px 15px #7e58314d;
+}
+
+table {
+    border-collapse: collapse;
+    box-shadow: 0 20px 40px #4c413314;
+}
+
+th {
+    padding: 5px;
+    text-align: left;
+    font-weight: 700;
+    background-color: #e7d3bde1;
+}
+
+td {
+    color: #5B4636;
+    padding: 10px 10px 10px 5px;
+    border-bottom: 1px solid #4c413314;
+    vertical-align: top;
+}
+
+.table-border {
+    border: 1px solid black;
+    overflow: hidden;
+    box-shadow: 0 12px 28px #4c41330f;
+    margin-bottom: 15px;
+}
+
+.creation-table td:first-child,
+.creation-table label {
+    text-align: right;
+}
+
+.creation-table {
+    box-shadow: none;
+    margin-top: 30px;
+}
+
+.surprise {
+    color: #5B4636;
+}
+
+.surprise:hover {
+    font-size: 500px;
+    color: goldenrod;
+    border: 5px solid gold;
+    border-radius: 30px;
+}
+
+.zen-dots-regular {
+    font-family: "Zen Dots", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.no-results {
+    text-align: center;
+    padding: 20px;
+}
+
+.form-label {
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.error {
+    color: red;
+    font-weight: 700;
+    margin-top: 10px;
+
+    animation: attention 2s ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+.success {
+    color: green;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+@keyframes attention {
+    from {
+        transform: scale(1);
+        color: #bd2d58;
+    }
+
+    50% {
+        transform: scale(1.1) translatex(5px);
+        color: red;
+    }
+
+    to {
+        transform: scale(1);
+        color: #bd2d58;
+    }
+}
+
+.shakey-shake:hover {
+    animation: shake 0.8s linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(2deg);
+    }
+
+    50% {
+        transform: rotate(0deg);
+    }
+
+    75% {
+        transform: rotate(-2deg);
+    }
+
+    to {
+        transform: rotate(0deg);
+    }
+
+}
+
+.you-sure:hover {
+    animation: youSure 0.3s linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes youSure {
+
+    from {
+        transform: translatex(0px);
+    }
+
+    25% {
+        transform: translatex(3px);
+    }
+
+    50% {
+        transform: translatex(0px);
+    }
+
+    75% {
+        transform: translatex(-3px);
+    }
+
+    to {
+        transform: translatex(0px);
+    }
+
+}
+
+.yippee:hover {
+    animation: yippee 0.8s ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+@keyframes yippee {
+    from {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+        box-shadow: 0 30px 50px #4c41330f;
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+.spinning {
+    animation: spinner 10s ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+@keyframes spinner {
+    from {
+        transform: rotate(0deg);
+        font-size: 20px;
+        margin-bottom: 100px;
+        color: red;
+    }
+
+    20% {
+        color: orangered;
+    }
+
+    30% {
+        color: orange;
+    }
+
+    40% {
+        color: goldenrod;
+    }
+
+    50% {
+        transform: rotate(360deg);
+        font-size: 100px;
+        margin-bottom: 10px;
+        color: greenyellow;
+    }
+
+    60% {
+        color: green;
+    }
+
+    70% {
+        color: turquoise;
+    }
+
+    80% {
+        color: blue;
+    }
+
+    90% {
+        color: indigo;
+    }
+
+    to {
+        transform: rotate(720deg);
+        font-size: 20px;
+        margin-bottom: 100px;
+        color: purple;
+    }
+}
+
+.shimmy {
+    animation: shimmy 5s linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes shimmy {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-15px);
+    }
+
+    50% {
+        transform: translateX(0);
+    }
+
+    75% {
+        transform: translateX(15px);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+.fade {
+    animation: fade 5s ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+
+    50% {
+        color: red;
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.shade {
+    background-color: #e7d3bde1;
+    font-weight: 700;
+    color: black;
+}
+
+.link {
+    color: goldenrod;
+    font-weight: 700;
+    text-decoration: none;
+    padding-bottom: 5px;
+}
+
+.link:hover {
+    font-style: italic;
+    color: #7e5831;
+    text-decoration: underline;
+}
+
+.edit-btn {
+    background-color: transparent;
+    color: #5B4636;
+    border: 2px solid #5B4636;
+    padding: 5px 10px;
+    font-weight: 700;
+}
+
+.edit-btn:hover {
+    background-color: goldenrod;
+    color: #FEFAE0;
+    font-size: 16px;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+#design-label {
+    display: block;
+}
+
+#submit-pokemon,
+#edit-pokemon {
+    margin-bottom: 50px;
+}
+
+#replace-pokemon-text {
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#replace-pokemon-text:hover {
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
+    color: goldenrod;
+    font-size: 25px;
+    font-weight: 900;
+}
+
+#replace-warning {
+    color: red;
+    font-weight: 700;
+}
+
+#replace-warning:hover {
+    font-size: 20px;
+}
+
+#submit-pokemon {
+    margin-bottom: 75px;
+}
+
+#edit-pokemon-button {
+    margin-bottom: 150px;
+}
+
+#edit-pokemon-button:hover {
+    color: #ff4a4a;
+}
+
+#output {
+    margin-top: 20px;
+}
+
+#pick-types, #pick-gimmick {
+    margin-bottom: 100px;
+}

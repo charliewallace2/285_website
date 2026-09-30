@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <script src="https://kit.fontawesome.com/fce09cfb67.js" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Notable&family=Outfit:wght@100..900&family=Zen+Dots&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <i class="fa-solid fa-hippo surprise"></i>
+    <h1 class="shimmy">Pokemon Creator</h1>
+    <h2 class="fade">Gotta Catch 'Em All!!</h2>
+    <div class="forms">
+        <label for="sort-types">Sort Types (Alphebetical):</label>
+        <select class="sort-option" id="sort-types">
+            <option value="Ascending">Ascending (A-Z)</option>
+            <option value="Descending">Descending (Z-A)</option>
+        </select>
+    </div>
+
+    <br />
+
+    <div class="forms">
+        <label>Ignore types weak to:</label>
+        <select id="weak-to">
+            <option value="None">None</option>
+            <option value="Normal">Normal</option>
+            <option value="Fire">Fire</option>
+            <option value="Water">Water</option>
+            <option value="Electric">Electric</option>
+            <option value="Grass">Grass</option>
+            <option value="Ice">Ice</option>
+            <option value="Fighting">Fighting</option>
+            <option value="Poison">Poison</option>
+            <option value="Ground">Ground</option>
+            <option value="Flying">Flying</option>
+            <option value="Psychic">Psychic</option>
+            <option value="Bug">Bug</option>
+            <option value="Rock">Rock</option>
+            <option value="Ghost">Ghost</option>
+            <option value="Fairy">Fairy</option>
+            <option value="Dragon">Dragon</option>
+            <option value="Dark">Dark</option>
+            <option value="Steel">Steel</option>
+        </select>
+    </div>
+
+    <br />
+
+    <div class="forms">
+        <label>Specify types strong against:</label>
+        <select id="strong-against">
+            <option value="None">None</option>
+            <option value="Normal">Normal</option>
+            <option value="Fire">Fire</option>
+            <option value="Water">Water</option>
+            <option value="Electric">Electric</option>
+            <option value="Grass">Grass</option>
+            <option value="Ice">Ice</option>
+            <option value="Fighting">Fighting</option>
+            <option value="Poison">Poison</option>
+            <option value="Ground">Ground</option>
+            <option value="Flying">Flying</option>
+            <option value="Psychic">Psychic</option>
+            <option value="Bug">Bug</option>
+            <option value="Rock">Rock</option>
+            <option value="Ghost">Ghost</option>
+            <option value="Fairy">Fairy</option>
+            <option value="Dragon">Dragon</option>
+            <option value="Dark">Dark</option>
+            <option value="Steel">Steel</option>
+        </select>
+    </div>
+
+    <br />
+
+    <div class="forms">
+        <label for="limit-input">How many types do you want returned? (1-18)</label>
+        <input type="number" id="limit-input" min="1" max="18" value="18">
+        <label id="design-label">(Note: This sets the MAXIMUM amount of types returned)</label>
+    </div>
+
+    <br />
+
+    <div class="forms">
+        <button id="list-types" class="zen-dots-regular yippee">List Type Options</button>
+    </div>
+
+    <br />
+    <br />
+
+    <div class="forms">
+        <label for="sort-gimmicks">Sort Gimmicks (Gen #):</label>
+        <select class="sort-option" id="sort-gimmicks">
+            <option value="ASC">Ascending</option>
+            <option value="DES">Descending</option>
+        </select>
+    </div>
+
+    <br />
+
+    <div class="forms">
+        <label>Only list gimmicks from generation:</label>
+
+        <select id="gimmick-gen">
+            <option value="None">None</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+        </select>
+    </div>
+
+    <br />
+
+    <div class="forms">
+        <label for="gimmick-keywords">Filter by keyword in description:</label>
+        <input id="gimmick-keywords" type="text" placeholder="Enter keyword(s)" />
+    </div>
+
+    <br />
+
+    <div class="forms">
+        <button id="list-gimmicks" class="zen-dots-regular yippee">List Gimmick Options</button>
+    </div>
+
+    <br />
+
+    <div id="output" class="overflow italic">
+        Tables will appear here.
+    </div>
+
+    <br />
+
+    <table class="creation-table">
+        <tr>
+            <td><label for="first_type_choice" class="form-label">What's your Pokemon's first type?</label></td>
+            <td>
+                <input id="first_type_choice" name="first_type_choice" type="text">
+                <div id="error-first_type_choice" class="error"></div>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="second_type_choice" class="form-label">What's your Pokemon's second type?</label></td>
+            <td>
+                <input id="second_type_choice" name="second_type_choice" type="text">
+                <div id="error-second_type_choice" class="error"></div>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="gimmick_choice" class="form-label">What's your Pokemon's gimmick?</label></td>
+            <td>
+                <input id="gimmick_choice" name="gimmick_choice" type="text">
+                <div id="error-gimmick_choice" class="error"></div>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="pokemon_name" class="form-label">Name your Pokemon</label></td>
+            <td>
+                <input id="pokemon_name" name="pokemon_name" type="text">
+                <div id="error-pokemon_name" class="error"></div>
+            </td>
+        </tr>
+    </table>
+
+    <br />
+
+    <button id="submit-pokemon" class="zen-dots-regular shakey-shake">Create Pokemon</button>
+
+    <div id="replace-pokemon-text">
+        <label>Want to replace an existing Pokemon with the one you created?</label>
+    </div>
+
+    <div class="forms">
+        <label>Enter the name of the existing Pokemon you wish to replace: </label>
+        <input id="edit-pokemon-name" name="edit-pokemon-name" type="text">
+        <div id="error-edit-pokemon-name" class="error"></div>
+    </div>
+
+    <div id="replace-warning">
+        <label>WARNING: This will permenantly replace the existing Pokemon.</label>
+    </div>
+
+    <button id="edit-pokemon" class="zen-dots-regular you-sure">Replace Existing Pokemon</button>
+
+    <i class="fa-solid fa-kiwi-bird spinning expanding"></i>
+
+    <script>
+        const isEmpty = (obj) => Object.keys(obj).length === 0;
+        const displayValue = (value) => value === null ? 'None' : value;
+
+        //list types button
+        document.getElementById('list-types').addEventListener('click', (event) => {
+            const getParameters = {};
+
+            // Collect sort parameter
+            const sortValue = document.getElementById('sort-types').value;
+            if (sortValue && sortValue.length !== 0) {
+                getParameters.sort = sortValue;
+            }
+
+            // Collect weakness filter
+            const weaknessValue = document.getElementById('weak-to').value;
+            if (weaknessValue && weaknessValue !== 'None') {
+                getParameters.weakness = weaknessValue;
+            }
+
+            // Collect strength filter
+            const strengthValue = document.getElementById('strong-against').value;
+            if (strengthValue && strengthValue !== 'None') {
+                getParameters.strength = strengthValue;
+            }
+
+            // Collect limit parameter
+            const limitValue = document.getElementById('limit-input').value;
+            if (limitValue && limitValue !== '') {
+                getParameters.limit = limitValue;
+            }
+
+            //Settings for FETCH API request
+            let fetchSettings = {
+                method: 'GET'
+            };
+
+            //Send FETCH API request
+            fetch("http://localhost:3000/pokemon/" + (!isEmpty(getParameters) ? '?' + new URLSearchParams(getParameters) : ''),
+                fetchSettings)
+                .then((response) => {
+                    return new Promise((resolve) => response.json()
+                        .then((json) => resolve({
+                            status: response.status,
+                            json,
+                        })
+                        ));
+                })
+                .then(({ status, json }) => {
+                    if (status === 200) {
+                        let displayTable = '<table>' +
+                            '<thead>' +
+                            '<tr>' +
+                            '<th class="table-border" width="7.7%">Type Name</th>' +
+                            '<th class="table-border" width="7.7%">W #1</th>' +
+                            '<th class="table-border" width="7.7%">W #2</th>' +
+                            '<th class="table-border" width="7.7%">W #3</th>' +
+                            '<th class="table-border" width="7.7%">W #4</th>' +
+                            '<th class="table-border" width="7.7%">W #5</th>' +
+                            '<th class="table-border" width="7.7%">S #1</th>' +
+                            '<th class="table-border" width="7.7%">S #2</th>' +
+                            '<th class="table-border" width="7.7%">S #3</th>' +
+                            '<th class="table-border" width="7.7%">S #4</th>' +
+                            '<th class="table-border" width="7.7%">S #5</th>' +
+                            '<th class="table-border" width="7.7%">N Eff #1</th>' +
+                            '<th class="table-border" width="7.7%">N Eff #2</th>' +
+                            '</tr>' +
+                            '</thead>' +
+                            '<tbody>';
+                        if (typeof json.data !== 'undefined' && json.data.length > 0) {
+                            for (row of json.data) {
+                                displayTable += '<tr>' +
+                                    '<td class="table-border" >' + displayValue(row.name) + '</td>' +
+                                    '<td class="table-border" >' + displayValue(row.weakness1) + '</td>' +
+                                    '<td class="table-border" >' + displayValue(row.weakness2) + '</td>' +
+                                    '<td class="table-border" >' + displayValue(row.weakness3) + '</td>' +
+                                    '<td class="table-border" >' + displayValue(row.weakness4) + '</td>' +
+                                    '<td class="table-border" >' + displayValue(row.weakness5) + '</td>' +
+                                    '<td class="table-border" >' + displayValue(row.strength1) + '</td>' +
+                                    '<td class="table-border" >' + displayValue(row.strength2) + '</td>' +
+                                    '<td class="table-border" >' + displayValue(row.strength3) + '</td>' +
+                                    '<td class="table-border" >' + displayValue(row.strength4) + '</td>' +
+                                    '<td class="table-border" >' + displayValue(row.strength5) + '</td>' +
+                                    '<td class="table-border" >' + displayValue(row.no_effect1) + '</td>' +
+                                    '<td class="table-border" >' + displayValue(row.no_effect2) + '</td>' +
+                                    '</tr>';
+                            }
+                        } else {
+                            displayTable += '<tr><td colspan="13" class="no-results">No results found</td></tr>';
+                        }
+                        displayTable += '</tbody></table>';
+                        const outputEl = document.getElementById('output');
+                        outputEl.classList.remove('italic');
+                        outputEl.innerHTML = displayTable;
+                    } else {
+                        document.getElementById('output').innerHTML = '<p class="error">Error: ' + json.message + '</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('output').innerHTML = '<p class"error">Error fetching data</p>';
+                });
+        });
+
+        //list gimmicks button
+        document.getElementById('list-gimmicks').addEventListener('click', (event) => {
+            const getParameters = {};
+
+            // Collect sort parameter
+            const sortValue = document.getElementById('sort-gimmicks').value;
+            if (sortValue && sortValue.length !== 0) {
+                getParameters.sort = sortValue;
+            }
+
+            // Collect generation filter
+            const genValue = document.getElementById('gimmick-gen').value;
+            if (genValue && genValue !== 'None') {
+                getParameters.gimmick_gen = genValue;
+            }
+
+            // Collect keyword filter for gimmick description
+            const keywordValue = document.getElementById('gimmick-keywords').value.trim();
+            if (keywordValue !== '') {
+                getParameters.keywords = keywordValue;
+            }
+
+            //Settings for FETCH API request
+            let fetchSettings = {
+                method: 'GET'
+            };
+
+            //Send FETCH API request
+            fetch("http://localhost:3000/gimmicks/" + (!isEmpty(getParameters) ? '?' + new URLSearchParams(getParameters) : ''),
+                fetchSettings)
+                .then((response) => {
+                    return new Promise((resolve) => response.json()
+                        .then((json) => resolve({
+                            status: response.status,
+                            json,
+                        })
+                        ));
+                })
+                //Logic to display results
+                .then(({ status, json }) => {
+                    if (status === 200) {
+                        let displayTable = '<table>' +
+                            '<thead>' +
+                            '<tr>' +
+                            '<th class="table-border" width="15%">Gimmick Name</th>' +
+                            '<th class="table-border" width="70%">Description</th>' +
+                            '<th class="table-border" width="15%">Generation</th>' +
+                            '</tr>' +
+                            '</thead>' +
+                            '<tbody>';
+                        if (typeof json.data !== 'undefined' && json.data.length > 0) {
+                            for (row of json.data) {
+                                displayTable += '<tr>' +
+                                    '<td class="table-border" >' + displayValue(row.gimmick_name) + '</td>' +
+                                    '<td class="table-border" >' + displayValue(row.gimmick_desc) + '</td>' +
+                                    '<td class="table-border" >' + displayValue(row.gimmick_gen) + '</td>' +
+                                    '</tr>';
+                            }
+                        } else {
+                            displayTable += '<tr><td colspan="3" class="no-results">No results found</td></tr>';
+                        }
+                        displayTable += '</tbody></table>';
+                        const outputEl = document.getElementById('output');
+                        outputEl.classList.remove('italic');
+                        outputEl.innerHTML = displayTable;
+                    } else {
+                        document.getElementById('output').innerHTML = '<p class="error">Error: ' + json.message + '</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('output').innerHTML = '<p class="error">Error fetching data</p>';
+                });
+        });
+
+        //submit button
+        document.getElementById('submit-pokemon').addEventListener('click', () => {
+            // Clear previous errors
+            document.querySelectorAll('[id^="error-"]').forEach(el => el.innerHTML = '');
+
+            const type1 = document.getElementById('first_type_choice').value.trim();
+            const formattedType1 = type1.charAt(0).toUpperCase() + type1.slice(1).toLowerCase();
+
+            const type2 = document.getElementById('second_type_choice').value.trim();
+            const formattedType2 = type2.charAt(0).toUpperCase() + type2.slice(1).toLowerCase();
+
+            const gimmickF = document.getElementById('gimmick_choice').value.trim();
+            const formattedGimmick = gimmickF.charAt(0).toUpperCase() + gimmickF.slice(1).toLowerCase();
+
+            const formData = new FormData();
+            formData.append('first_type_choice', formattedType1);
+            formData.append('second_type_choice', formattedType2);
+            formData.append('gimmick_choice', formattedGimmick);
+            formData.append('pokemon_name', document.getElementById('pokemon_name').value);
+
+            fetch("http://localhost:3000/create-pokemon", {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json().then(data => ({ status: response.status, data })))
+                .then(({ status, data }) => {
+                    if (status === 400) {
+                        // Map errors to specific fields
+                        data.errors.forEach(err => {
+                            const errorDiv = document.getElementById(`error-${err.path}`);
+                            if (errorDiv) {
+                                errorDiv.innerHTML = err.msg;
+                            }
+                        });
+                    } else if (status === 200) {
+                        alert(data.message);
+
+                        let displayTable =
+                            '<table>' +
+                            '<thead>' +
+                            '<tr>' +
+                            '<th class="table-border">Name</th>' +
+                            '<th class="table-border">Type 1</th>' +
+                            '<th class="table-border">Type 2</th>' +
+                            '<th class="table-border">Gimmick</th>' +
+                            '<th class="table-border">Gen</th>' +
+                            '</tr>' +
+                            '</thead>' +
+                            '<tbody>';
+
+                        // Loop through the data the server just sent back
+                        data.allData.forEach(mon => {
+                            displayTable += '<tr>' +
+                                '<td class="table-border ">' + displayValue(mon.name) + '</td>' +
+                                '<td class="table-border">' + displayValue(mon.first_type) + '</td>' +
+                                '<td class="table-border">' + displayValue(mon.second_type) + '</td>' +
+                                '<td class="table-border">' + displayValue(mon.gimmick) + '</td>' +
+                                '<td class="table-border">' + displayValue(mon.gen) + '</td>' +
+                                '</tr>';
+                        });
+
+                        displayTable += '</tbody></table>';
+
+                        // Update the output div
+                        const outputEl = document.getElementById('output');
+                        outputEl.classList.remove('italic');
+                        outputEl.innerHTML = displayTable;
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+
+</html>
