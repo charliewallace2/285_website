@@ -4,13 +4,6 @@ const multer = require('multer');
 const mysql = require('mysql2/promise');
 const { body, validationResult } = require('express-validator');
 
-//Stylesheet
-app.use(express.static(__dirname + '/public'));
-//Webpage
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
 
 //Setup defaults for script
 const app = express();
@@ -20,6 +13,13 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
     next();
+});
+
+//Stylesheet
+app.use(express.static(__dirname + '/public'));
+//Webpage
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // list of valid types
