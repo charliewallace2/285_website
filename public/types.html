@@ -169,7 +169,7 @@
             };
 
             //Send FETCH API request
-            fetch("http://localhost:3000/pokemon/" + (!isEmpty(getParameters) ? '?' + new URLSearchParams(getParameters) : ''),
+            fetch("/pokemon/" + (!isEmpty(getParameters) ? '?' + new URLSearchParams(getParameters) : ''), fetchSettings)
                 fetchSettings)
                 .then((response) => {
                     return new Promise((resolve) => response.json()
@@ -249,7 +249,7 @@
             formData.append('first_type_choice', formattedType1);
             formData.append('second_type_choice', formattedType2);
 
-            fetch("http://localhost:3000/create-types", {
+            fetch("/create-types", {
                 method: 'POST',
                 body: formData
             })
