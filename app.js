@@ -49,7 +49,7 @@ async function query(sql, params) {
         connection = await mysql.createConnection({
             host: "student-databases.cvode4s4cwrc.us-west-2.rds.amazonaws.com",
             user: "JENNAWALLACE",
-            password: "QVKqADY67h3pgMyQ5yc2HFIUMSjNFRiXiBy",
+            password: process.env.DB_PASSWORD,
             database: 'JENNAWALLACE'
         });
     }
