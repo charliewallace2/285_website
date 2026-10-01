@@ -1,4 +1,5 @@
 //Libraries
+const path = require('path');
 const express = require('express');
 const multer = require('multer');
 const mysql = require('mysql2/promise');
@@ -37,7 +38,7 @@ const validGimmicks = [
 ];
 
 const upload = multer()
-const port = 3000 //3000 is the port that works on my computer, but feel free to change if needed
+const port =  process.env.PORT || 3000;
 
 let connection = null;
 
@@ -464,5 +465,5 @@ app.put('/pokemon-characters/:id',
     });
 
 app.listen(port, () => {
-    console.log(`Application listening at http://localhost:${port}`);
-})
+    console.log(`Application listening on port ${port}`);
+});
