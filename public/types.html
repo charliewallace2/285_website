@@ -170,7 +170,6 @@
 
             //Send FETCH API request
             fetch("/pokemon/" + (!isEmpty(getParameters) ? '?' + new URLSearchParams(getParameters) : ''), fetchSettings)
-                fetchSettings)
                 .then((response) => {
                     return new Promise((resolve) => response.json()
                         .then((json) => resolve({
