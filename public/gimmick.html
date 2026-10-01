@@ -118,7 +118,7 @@
             };
 
             //Send FETCH API request
-            fetch("http://localhost:3000/gimmicks/" + (!isEmpty(getParameters) ? '?' + new URLSearchParams(getParameters) : ''),
+            fetch("/gimmicks/" + (!isEmpty(getParameters) ? '?' + new URLSearchParams(getParameters) : ''),
                 fetchSettings)
                 .then((response) => {
                     return new Promise((resolve) => response.json()
@@ -173,7 +173,7 @@
             const formData = new FormData();
             formData.append('gimmick_choice', gimmick);
 
-            fetch('http://localhost:3000/create-gimmick', {
+            fetch('/create-gimmick', {
                 method: 'POST',
                 body: formData
             })

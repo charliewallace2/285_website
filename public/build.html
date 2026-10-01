@@ -77,7 +77,7 @@
             const formData = new FormData();
             formData.append('pokemon_name', pokemonName);
 
-            fetch("http://localhost:3000/pokemon-characters", {
+            fetch("/pokemon-characters/", {
                 method: 'POST',
                 body: formData
             })
